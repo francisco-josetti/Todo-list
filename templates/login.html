@@ -1,0 +1,11 @@
+{{define "content"}}
+<div class="flex flex-col items-center justify-start h-screen w-100 mx-auto px-4 md:px-0 mt-8">
+    <form action="/login" method="POST" class="w-full max-w-sm flex flex-col gap-4 items-center justify-start">
+        {{if .Error}}<div> <p class="text-red-500 mt-4 w-full text-center">{{.Error}}</p></div>{{end}}
+        <input type="text" name="user" id="title" placeholder="Type your email" class="border border-gray-300 rounded-md px-4 py-2 w-full">
+        <input type="password" name="pass" id="title" placeholder="Type your password" class="border border-gray-300 rounded-md px-4 py-2 w-full">
+        <button type="submit" class="bg-gray-700 hover:scale-110 duration-300 text-white font-bold py-2 px-4 rounded w-full">Login</button>
+    </form>
+    <p class="text-gray-600 mt-4 w-full text-center">Don't have an account?<a href="/auth" class="text-blue-500 hover:scale-110 duration-300 active:scale-100">click here</a></p>
+</div>
+{{end}}
