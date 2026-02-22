@@ -23,6 +23,12 @@ type User struct{
 	Password string
 }
 
+type PageData struct {
+    Tasks        []Task
+    IsLoggedIn   bool
+	Error        string
+}
+
 type AuthPageData struct {
 	Error string
 }
@@ -79,7 +85,11 @@ func handler(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	tmpl := template.Must(template.ParseFiles("templates/base.html","templates/index.html"))
-	tmpl.ExecuteTemplate(w, "base", userTasks(user.ID))
+	data := PageData{
+		Tasks: userTasks(userID),
+		IsLoggedIn: true,
+	}
+	tmpl.ExecuteTemplate(w, "base", data)
 }
 
 func registerHandler(w http.ResponseWriter, r *http.Request){
@@ -99,7 +109,8 @@ func registerHandler(w http.ResponseWriter, r *http.Request){
 		_,err = db.Exec("INSERT INTO users (email, password) VALUES (?, ?)", email, hashedPassword)
 		if err != nil {
 	tmpl := template.Must(template.ParseFiles("templates/base.html","templates/auth.html"))
-	data := AuthPageData{
+	data := PageData{
+		IsLoggedIn: false,
 		Error: "Email already exists.",
 	}
 	tmpl.ExecuteTemplate(w, "base", data)
@@ -110,7 +121,11 @@ func registerHandler(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	tmpl := template.Must(template.ParseFiles("templates/base.html","templates/auth.html"))
-	tmpl.ExecuteTemplate(w, "base", nil)
+	data := PageData{
+    IsLoggedIn: false,
+	Error: "Email already exists.",
+}
+	tmpl.ExecuteTemplate(w, "base", data)
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
@@ -138,7 +153,8 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	tmpl := template.Must(template.ParseFiles("templates/base.html","templates/login.html"))
-	data := AuthPageData{
+	data := PageData{
+	IsLoggedIn: false,
 	Error: "Email ou senha incorretos.",
 }
 	tmpl.ExecuteTemplate(w,"base",data)
@@ -183,7 +199,10 @@ func createHandler(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	tmpl := template.Must(template.ParseFiles("templates/base.html","templates/create.html"))
-	tmpl.ExecuteTemplate(w, "base", nil)
+	data := PageData{
+    IsLoggedIn: true,
+}
+	tmpl.ExecuteTemplate(w, "base", data)
 }
 
 func doneHandler(w http.ResponseWriter, r *http.Request){

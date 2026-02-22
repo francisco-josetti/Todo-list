@@ -1,6 +1,6 @@
 
 {{define "content"}}
-{{ if not . }}
+{{ if not .Tasks }}
     <div class="flex flex-col items-center justify-start  h-screen w-100 mx-auto px-4 md:px-0 mt-8">
         <h1 class="text-4xl font-bold mb-4">Welcome to Todo App</h1>
         <p class="text-lg text-gray-600 mb-8">Manage your tasks efficiently with Todo App</p>
@@ -10,7 +10,7 @@
     <div class="flex flex-col items-center justify-start  h-screen w-100 mx-auto px-4 md:px-0 mt-8">
         <h1 class="text-4xl font-bold mb-4">Your Tasks</h1>
         <ul class="w-full max-w-sm">
-            {{range .}}
+            {{range .Tasks}}
                 <li class="flex items-center justify-between mb-4">
                     <span class="text-lg text-gray-600">{{.Title}}</span>
                     <a href="/done?id={{.ID}}"><span class="text-md text-white hover:scale-110 duration-300 active:scale-100  radius px-2  rounded-full w-12 h-10 flex items-center justify-center">{{if .Done}}<i class="bi bi-check-lg bg-green-500 w-7 h-7 flex items-center justify-center rounded-full"></i>{{else}}<i class="bi bi-x bg-red-500 w-7 h-7 flex items-center justify-center rounded-full"></i>{{end}}</span></a>

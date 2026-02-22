@@ -23,11 +23,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
+    {{if .IsLoggedIn}}
     <nav class= "shadow-md p-4 flex justify-between h-16 items-center">
         <a href="/logout" class="text-2xl font-bold text-gray-800 hover:scale-110 duration-300 active:scale-100  radius px-2 bg-gray-700 rounded-full  text-white w-10 h-10 flex items-center justify-center"><i class="bi bi-box-arrow-left"></i></a>
         <a href="/" class="text-2xl font-bold text-gray-800">TODO APP</a>
         <a href="/create" class="text-2xl font-bold text-gray-800  hover:scale-110 duration-300 active:scale-100  radius px-2 bg-gray-700 rounded-full  text-white w-10 h-10 flex items-center justify-center"><i class="bi bi-plus-lg active:bg-gray-700"></i></a>
     </nav>
+    {{end}}
     <main>{{template "content" .}}{{end}}</main>
 </body>
 </html>
